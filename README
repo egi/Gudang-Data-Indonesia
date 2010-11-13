@@ -1,0 +1,29 @@
+Gudang Data Indonesia
+
+Suatu repositori data yang umum digunakan oleh pemrogram. Contohnya seperti
+asal diskusi ini lah. Data lain bisa kode kendaraan bermotor, data danau,
+sungai, Indonesia, dll.
+
+Skripnya sebenernya sangat sederhana yang mesti kita pikirin adalah (1)
+kemutakhiran data, (2) otomatisasi, (3) keluwesan penambangan, dan (4)
+keterskalaan server utk menampung permintaan yang banyak.
+-- Ivan Lanin
+
+Kita punya sistem Gudang Data yang merupakan repository data umum yang
+sumbernya dari berbagai tempat. Outputnya disederhanakan menjadi
+seperti XML, JSON, CSV atau yang lainnya. Masalah output harusnya
+gampang, seperti kata Arthur, karena tinggal echo dengan mengikuti
+aturan tertentu.
+
+Pengumpulan data, bisa gampang bisa susah. Susahnya adalah menemukan
+sumber data, menambangnya dan membersihkannya untuk kemudian disusun
+dalam simpanan kita. Gampangnya kalau proses tersebut berhasil
+di-otomatisasi, maka berapapun datanya atau kapanpun data itu ada bisa
+kita dapatkan untuk disajikan.
+
+Nah, otomatisasi data ini kuncinya menurut saya adalah CURL dan regex,
+yang merupakan proses sekali jalan. Masalah selanjutnya adalah, kalau
+kemudian ternyata setelah otomatisasi berjalan dengan baik, tiba-tiba
+sumber data mengubah pola datanya sehingga regex pengumpul data tidak
+sesuai lagi.
+-- Youppie Arliansyah
