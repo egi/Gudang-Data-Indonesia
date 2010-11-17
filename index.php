@@ -6,7 +6,7 @@
  * @author	Agastiya S. Mohammad <agastiya@gmail.com>
  * @since	2010-11-13 23:35
  */
-require_once('gdi.class.php');
+
 define('LF', "\r\n");
 
 interface output
@@ -40,7 +40,8 @@ class html implements output
 	{
 		$ret  = '<table>';
 		$ret .= '<tr>';
-		foreach ($result[0] as $column => $value)
+		$first_row = reset($result);
+		foreach ($first_row as $column => $value)
 			$ret .= '<th>' . $column . '</th>';
 		$ret .= '</tr>';
 		foreach ($result as $rows)
@@ -108,12 +109,14 @@ class json implements output
 	}
 }
 
+//require_once('gdi.class.php');
+require_once('gdi_yopi.class.php');
 $gdi = new gdi();
-$table_name = (isset($_GET['q'])) ? $_GET['q'] : 'wilayah';
-$result = $gdi->get_data('SELECT * FROM ' . $table_name . ' LIMIT 0, 50');
+$level = (isset($_GET['q'])) ? $_GET['q'] : 'wilayah';
+$result = $gdi->get_data($level);
 
 // Tampilkan hasil
-if (PEAR::isError($result))
+if (class_exists('PEAR') && PEAR::isError($result))
 {
 	echo $result->getMessage() . "<br />\n" . $result->getDebugInfo();
 }

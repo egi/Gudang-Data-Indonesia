@@ -36,6 +36,12 @@ class gdi
 	 */
 	function get_data($query)
 	{
+		$filter = '1=1 ';
+		if ('propinsi' == $query)
+			$filter .= 'AND `level`="P"';
+		elseif ('kabupaten' == $query)
+			$filter .= 'AND `level`="K"';
+		$query = 'SELECT * FROM wilayah WHERE '.$filter.' LIMIT 50';
 		$fetch_mode = MDB2_FETCHMODE_ASSOC;
 		$rows = $this->_db->queryAll($query, null, $fetch_mode);
 		return($rows);
