@@ -3,6 +3,7 @@
  * Gudang Data Indonesia
  *
  * @author	Ivan Lanin <ivan@lanin.org>
+ * @author	Agastiya S. Mohammad <agastiya@gmail.com>
  * @since	2010-11-13 23:35
  */
 require_once('MDB2.php');
@@ -17,44 +18,45 @@ if ($_GET['q'] == 'wilayah')
 // Tampilkan hasil
 if ($result)
 {
+	$output_fn = 'output_html';
+	if (isset($_GET['f']) && function_exists('output_'.$_GET['f']))
+		$output_fn = 'output_' . $_GET['f'];
+	echo $output_fn($result);
+}
+
+function output_csv($result)
+{
+	$ret = '';
 	$rows = count($result);
-	switch ($_GET['f'])
+	foreach ($result[0] as $column => $value)
+		$head .= ($head ? ',' : '') . $column;
+	$ret .= $head . LF;
+	foreach ($result as $rows)
 	{
-	case 'xml':
-		$ret .= output_xml($result);
-		break;
-	case 'json':
-		$ret .= output_json($result);
-		break;
-	case 'csv':
-		foreach ($result[0] as $column => $value)
-			$head .= ($head ? ',' : '') . $column;
-		$ret .= $head . LF;
-		foreach ($result as $rows)
-		{
-			$row = '';
-			foreach ($rows as $column => $value)
-				$row .= ($row ? ',' : '') . $value;
-			$ret .= $row . LF;
-		}
-		break;
-	default:
-		$ret .= '<table>';
-		$ret .= '<tr>';
-		foreach ($result[0] as $column => $value)
-			$ret .= '<th>' . $column . '</th>';
-		$ret .= '</tr>';
-		foreach ($result as $rows)
-		{
-			$ret .= '<tr>';
-			foreach ($rows as $column => $value)
-				$ret .= '<td>' . $value . '</td>';
-			$ret .= '</tr>';
-		}
-		$ret .= '</table>';
-		break;
+		$row = '';
+		foreach ($rows as $column => $value)
+			$row .= ($row ? ',' : '') . $value;
+		$ret .= $row . LF;
 	}
-	echo($ret);
+	return $ret;
+}
+
+function output_html($result)
+{
+	$ret  = '<table>';
+	$ret .= '<tr>';
+	foreach ($result[0] as $column => $value)
+		$ret .= '<th>' . $column . '</th>';
+	$ret .= '</tr>';
+	foreach ($result as $rows)
+	{
+		$ret .= '<tr>';
+		foreach ($rows as $column => $value)
+			$ret .= '<td>' . $value . '</td>';
+		$ret .= '</tr>';
+	}
+	$ret .= '</table>';
+	return $ret;
 }
 
 /**
@@ -72,7 +74,7 @@ function array_to_xml(&$array)
 		else
 		{
 			$ret .= sprintf('<%1$s>', $keyName) . LF;
-			$ret .= array_to_xml(&$value);
+			$ret .= array_to_xml($value);
 			$ret .= sprintf('</%1$s>', $keyName) . LF;
 		}
 	}
@@ -86,7 +88,7 @@ function output_xml(&$apiData)
 {
 	$ret .= '<?xml version="1.0"?>' . LF;
 	$ret .= '<gdi status="1">' . LF;
-	$ret .= array_to_xml(&$apiData);
+	$ret .= array_to_xml($apiData);
 	$ret .= '</gdi>' . LF;
 	//header('Content-type: text/xml');
 	return($ret);
@@ -114,12 +116,6 @@ class gdi
 	 */
 	function __construct()
 	{
-	}
-
-	/**
-	 */
-	function get_data($query)
-	{
 		$dsn = array(
 			'host' => 'localhost',
 			'name' => '',
@@ -132,6 +128,12 @@ class gdi
 		if (PEAR::isError($this->_db)) die($this->_db->getMessage());
 		$this->_db->exec("SET NAMES 'utf8'");
 		$fetch_mode = MDB2_FETCHMODE_ASSOC;
+	}
+
+	/**
+	 */
+	function get_data($query)
+	{
 		$rows = $this->_db->queryAll($query, null, $fetch_mode);
 		return($rows);
 	}
