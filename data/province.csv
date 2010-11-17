@@ -1,17 +1,4 @@
-<META>
-author:Youppie Arliansyah
-tanggal_dibuat:2010-11-17
-email:youppie@gmail.com
-nama_file:wilayah.txt
-deskripsi:Data Propinsi Indonesia, sumber data diambil dari sumbangan Wida Sari dari file group ID-PHP
-kegunaan:Demo
-lokasi:data/yopi/propinsi.txt
-primary_key:kode_wilayah
-sifat_tabel:master;hirarki
-struktur_tabel:kode_wilayah;nama_wilayah
-</META>
-<DATA>
-kode_wilayah;nama_wilayah
+code;name
 11.00.00.0000;Nanggroe Aceh Darussalaam
 12.00.00.0000;Sumatra Utara
 13.00.00.0000;Sumatra Barat
@@ -44,4 +31,3 @@ kode_wilayah;nama_wilayah
 82.00.00.0000;Maluku Utara
 91.00.00.0000;Papua
 92.00.00.0000;Irian Jaya Barat
-</DATA>
