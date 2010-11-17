@@ -6,7 +6,7 @@
  * @author	Agastiya S. Mohammad <agastiya@gmail.com>
  * @since	2010-11-13 23:35
  */
-require_once('MDB2.php');
+require_once('gdi.class.php');
 define('LF', "\r\n");
 
 $gdi = new gdi();
@@ -103,38 +103,4 @@ function output_json(&$apiData)
 	$ret .= json_encode($data);
 	//header('Content-type: application/json');
 	return($ret);
-}
-
-/**
- */
-class gdi
-{
-	var $dsn;
-	var $_db;
-
-	/**
-	 */
-	function __construct()
-	{
-		$dsn = array(
-			'host' => 'localhost',
-			'name' => '',
-			'user' => '',
-			'pass' => '',
-		);
-		$this->dsn = sprintf('%1$s://%2$s:%3$s@%4$s/%5$s',
-			'mysql', $dsn['user'], $dsn['pass'], $dsn['host'], $dsn['name']);
-		$this->_db =& MDB2::factory($this->dsn);
-		if (PEAR::isError($this->_db)) die($this->_db->getMessage());
-		$this->_db->exec("SET NAMES 'utf8'");
-		$fetch_mode = MDB2_FETCHMODE_ASSOC;
-	}
-
-	/**
-	 */
-	function get_data($query)
-	{
-		$rows = $this->_db->queryAll($query, null, $fetch_mode);
-		return($rows);
-	}
 }
