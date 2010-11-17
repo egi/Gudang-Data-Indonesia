@@ -10,13 +10,15 @@ require_once('gdi.class.php');
 define('LF', "\r\n");
 
 $gdi = new gdi();
-if ($_GET['q'] == 'wilayah')
-{
-	$result = $gdi->get_data('SELECT * FROM ' . $_GET['q'] . ' LIMIT 0, 50');
-}
+$table_name = (isset($_GET['q'])) ? $_GET['q'] : 'wilayah';
+$result = $gdi->get_data('SELECT * FROM ' . $table_name . ' LIMIT 0, 50');
 
 // Tampilkan hasil
-if ($result)
+if (PEAR::isError($result))
+{
+	echo $result->getMessage() . "<br />\n" . $result->getDebugInfo();
+}
+else
 {
 	$output_fn = 'output_html';
 	if (isset($_GET['f']) && function_exists('output_'.$_GET['f']))

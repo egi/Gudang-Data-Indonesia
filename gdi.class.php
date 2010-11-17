@@ -45,6 +45,21 @@ class gdi
 	{
 		$this->_db->loadModule('Extended');
 
+		$sql = <<<EOSQL
+DROP TABLE IF EXISTS `wilayah`;
+CREATE TABLE IF NOT EXISTS `wilayah` (
+  `id` char(10) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `level` char(1) NOT NULL,
+  `provinsi_id` tinyint(3) NOT NULL,
+  `kota_id` tinyint(2) NOT NULL,
+  `kecamatan_id` tinyint(2) NOT NULL,
+  `parent_id` char(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+EOSQL;
+		$this->_db->query($sql);
+
 		$last_id = array('P'=>0, 'K'=>0);
 		$fields = array('id', 'name', 'level', 'provinsi_id', 'kota_id', 'kecamatan_id');
 		$rs = fopen($filename, 'r');
