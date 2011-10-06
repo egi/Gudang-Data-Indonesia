@@ -27,3 +27,29 @@ kemudian ternyata setelah otomatisasi berjalan dengan baik, tiba-tiba
 sumber data mengubah pola datanya sehingga regex pengumpul data tidak
 sesuai lagi.
 -- Youppie Arliansyah
+
+location database 
+- Key harus bisa diquery dan dalam bentuk tree
+- output bisa dalam berbagai versi (xls, csv, json)
+- ada versioning.
+- perbedaan versi bisa di 'diff' sehingga ketidakvalidan user data bisa langsung
+  dihighlight
+- location database dimiliki oleh admin
+- best saved in sqlite
+
+data
+- merefer ke location_id dari versi tertentu dari location database
+- dimiliki oleh user
+- cannot be queried.
+- hanya bisa di download sebagai data penuh, dalam berbagai versi
+  (xls, csv, json)
+- waktu upload akan dicek validitas key
+- waktu insert data, user bisa download location key terlebih dahulu.
+- location key bisa subset di daerah tertentu saja
+- orang lain bisa branching data
+- best saved in csv
+- metadata saved in ini:
+    - info referal: location database versi tertentu, scope filters
+    - data owner (user)
+    - column description
+    - version data: time, comment
