@@ -8,22 +8,26 @@
  * @last_update Wida Sari <wida.sari@yahoo.com> 2011-10-05 11:18
 */
 if (!file_exists('config.php'))
-	die('config.php tidak ditemukan. Buat config.php dari config.sample.php');
+	die(__('config.php tidak ditemukan. Buat config.php dari config.sample.php'));
 
 require_once('config.php');
 require_once('lib/php/catalog.class.php');
 require_once('lib/php/output.class.php');
 require_once('lib/php/gdi.class.php');
+require_once('lib/gettext/gettext.inc');
 
+// Locale
+$locale = 'id';
+T_setlocale(LC_MESSAGES, $locale);
+T_bindtextdomain(APP_ID, APP_DIR . '/assets/locale');
+T_textdomain(APP_ID);
+
+// Process get
 if(isset($_GET['q']))
 {
-
-	$default_data = 'propinsi';
-	$default_output = 'html';
-
 	$gdi = new gdi();
-	$data = (isset($_GET['q']) && file_exists(DATA_DIR.$_GET['q'].'.txt')) ? $_GET['q'] : $default_data;
-	$output = (isset($_GET['o']) && class_exists($_GET['o'])) ? $_GET['o'] : $default_output;
+	$data = (isset($_GET['q']) && file_exists(DATA_DIR.$_GET['q'].'.txt')) ? $_GET['q'] : DEFAULT_DATA;
+	$output = (isset($_GET['o']) && class_exists($_GET['o'])) ? $_GET['o'] : DEFAULT_OUTPUT;
 	$result = $gdi->get_data($data, $output);
 
 	// Tampilkan hasil
@@ -77,4 +81,4 @@ else if(isset($data_sets))
 ?>
 <hr>
 
-&copy; <?php echo date('Y'); ?> id-php@yahoogroups.com
+&copy; <?php echo date('Y'); ?> <a href="http://id-php.org/GDI">http://id-php.org/GDI</a>
