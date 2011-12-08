@@ -1,8 +1,8 @@
 <?php
 //define('DATA_DIR', '/home/fasilkom/staf/w/wida12/public_html/gdi/data/');
 require_once('config.php');
-require_once('../lib/php/output.class.php');
-require_once('../lib/php/gdi.class.php');
+require_once('lib/php/output.class.php');
+require_once('lib/php/gdi.class.php');
 
 if(isset($_GET['q']))
 {
@@ -58,7 +58,7 @@ if(isset($_GET['q']))
 		}
 
 		$ticks_str = "['".(implode("','", $ticks))."']";
-		
+
 		$data_str = "[";
 		foreach($plot_data as $index=>$data)
 		{
@@ -84,26 +84,26 @@ if(isset($_GET['q']))
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Graph <?php echo $q; ?></title>
   <!--[if IE]><script language="javascript" type="text/javascript" src="../excanvas.js"></script><![endif]-->
-  
-  <link rel="stylesheet" type="text/css" href="../lib/jqplot/jquery.jqplot.css" />
-  <link rel="stylesheet" type="text/css" href="../lib/jqplot/examples/examples.css" />
-  
+
+  <link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.css" />
+  <link rel="stylesheet" type="text/css" href="lib/jqplot/examples/examples.css" />
+
   <!-- BEGIN: load jquery -->
-  <script language="javascript" type="text/javascript" src="../lib/jqplot/jquery.min.js"></script>
+  <script language="javascript" type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
   <!-- END: load jquery -->
-  
+
   <!-- BEGIN: load jqplot -->
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/jquery.jqplot.js"></script>
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/plugins/jqplot.barRenderer.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/plugins/jqplot.highlighter.mod.js"></script>
-    <script language="javascript" type="text/javascript" src="../lib/jqplot/plugins/jqplot.cursor.min.js"></script> 
-    
+    <script language="javascript" type="text/javascript" src="lib/jqplot/jquery.jqplot.js"></script>
+    <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.barRenderer.min.js"></script>
+    <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.highlighter.mod.js"></script>
+    <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.cursor.min.js"></script>
+
   <!-- END: load jqplot -->
   <style type="text/css">
     .jqplot-axis { font-size: 0.85em; }
@@ -113,7 +113,7 @@ if(isset($_GET['q']))
     .jqplot-yaxis-tick {font-size: 0.85em;}
     .jqplot { margin: 70px;}
     .jqplot-target { margin-bottom: 2em; }
-    
+
     pre {
         background: #D8F4DC;
         border: 1px solid rgb(200, 200, 200);
@@ -121,11 +121,11 @@ if(isset($_GET['q']))
         padding-left: 3em;
         padding-bottom: 1em;
         margin-top: 1em;
-        margin-bottom: 4em;    
+        margin-bottom: 4em;
     }
-    
+
     p { margin: 2em 0; }
-    
+
     .note { font-size: 0.8em; }
 
     .jqplot-breakTick { }
@@ -143,7 +143,7 @@ $(document).ready(function(){
 	  series: <?php echo $series_str?>,
 	  axes:{
 		xaxis:{
-		  renderer:$.jqplot.CategoryAxisRenderer, 
+		  renderer:$.jqplot.CategoryAxisRenderer,
 		  tickRenderer: $.jqplot.CanvasAxisTickRenderer,
           tickOptions: { angle: 30 },
 		  ticks:<?php echo $ticks_str ?>
@@ -167,14 +167,14 @@ $(document).ready(function(){
         }
         return numberWithCommas($.jqplot.sprintf(format, val));
     };
- 
+
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ".");
     }
 })(jQuery);
 
   </script>
-  <script type="text/javascript" src="../lib/jqplot/examples/example.js"></script>
+  <script type="text/javascript" src="lib/jqplot/examples/example.js"></script>
   </head>
   <body>
    <div class="example-content">
