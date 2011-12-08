@@ -7,6 +7,8 @@
  * @since	2010-11-13 23:35
  * @last_update Wida Sari <wida.sari@yahoo.com> 2011-10-05 11:18
 */
+if (!file_exists('config.php'))
+	die('config.php tidak ditemukan. Buat config.php dari config.sample.php');
 
 require_once('config.php');
 require_once('lib/php/catalog.class.php');
