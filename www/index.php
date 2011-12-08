@@ -12,7 +12,7 @@ require_once('config.php');
 require_once('../lib/php/catalog.class.php');
 require_once('../lib/php/output.class.php');
 require_once('../lib/php/gdi.class.php');
-
+echo "here";
 if(isset($_GET['q']))
 {
 
