@@ -1,0 +1,48 @@
+<META>
+author:Wida Sari
+tanggal_dibuat:17/10/2011
+email:wida.sari@yahoo.com
+nama_file:pemilu_presiden_2004.txt
+deskripsi:jumlah pemilih per pasangan presiden/wakil presiden pada pemilu 2004
+kegunaan:demo
+lokasi:data/pemilu_presiden_2004.txt
+primary_key:Provinsi
+sifat_tabel:statistik
+struktur_tabel:Provinsi;H._Wiranto_Salahudin_Wahid;Megawati_Hasyim_Muzadi;Amin_Rais_Siswono_Yudohusodo;Susilo_BY_Jusuf_Kalla;Hamzah_Haz_Agum_Gumelar
+</META>
+<DATA>
+Provinsi;H._Wiranto_Salahudin_Wahid;Megawati_Hasyim_Muzadi;Amin_Rais_Siswono_Yudohusodo;Susilo_BY_Jusuf_Kalla;Hamzah_Haz_Agum_Gumelar
+Nanggroe Aceh Darusalam;204534;120226;1195823;519197;88836
+Sumatera Utara;934213;2233777;79879;1523612;105687
+Sumatera Barat;610847;121254;741811;518648;57228
+Riau;504017;460328;397761;677761;44092
+Jambi;364651;273925;155974;520145;28437
+Sumatera Selatan;640294;1127608;341716;1241095;50644
+Bengkulu;253986;155657;121483;196057;1248
+Lampung;881715;896581;359285;1430729;58297
+Bangka Belitung;8225;179777;58759;165657;11656
+Kepulauan Riau;81816;153138;128551;224334;9437
+DKI. Jakarta;499455;1172891;1415582;1988306;121924
+Jawa Barat;5341526;5095705;3562173;7100175;810519
+Jawa Tengah;3943032;5807127;2409138;5276432;820273
+DI. Yogyakarta;334067;557133;558068;576012;28293
+Jawa Timur;5076454;5896278;1902254;7458399;599806
+Banten;922299;1193414;796758;1706548;172971
+Bali;210784;1115788;48472;654127;9791
+Nusa Tenggara Barat;723484;223204;436073;715838;68382
+Nusa Tenggara Timur;432823;1344116;58341;312777;8757
+Kalimantan Barat;415492;821577;185097;477724;113244
+Kalimantan Tengah;170193;296335;88439;303123;23976
+Kalimantan Selatan;353732;211881;339993;600156;103429
+Kalimantan Timur;246715;337458;255665;5589;31459
+Sulawesi Utara;451663;389135;47309;355436;1338
+Sulawesi Tengah;455167;119917;101877;539624;17865
+Sulawesi Selatan;678445;381385;476483;2854774;57728
+Sulawesi Tenggara;361386;108905;74496;398544;11907
+Gorontalo;402162;39647;39569;3121;12624
+Maluku;288091;269611;40392;100748;8887
+Maluku Utara;181373;98459;75404;102353;6272
+Irian Jaya Barat;38425;102191;18221;148675;3538
+Papua;157702;202295;126429;465424;43776
+Luar Negeri;43995;62381;36745;95644;14266
+</DATA>

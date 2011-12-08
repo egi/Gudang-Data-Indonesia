@@ -1,0 +1,8 @@
+{
+  "author"      : "Youppie Arliansyah",
+  "author_email": "youppie@gmail.com",
+  "ctime"       : "2010-11-17",
+  "description" : "Data Propinsi Indonesia, sumber data diambil dari sumbangan Wida Sari dari file group ID-PHP",
+  "columns"     : ["code", "name"],
+  "primary_key" : "code"
+}
