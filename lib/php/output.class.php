@@ -25,8 +25,8 @@ class csv implements output
 				$head .= ($head ? CSV_SEP : '') . $column;
 			$ret .= $head . LF;
 		}
-		
-		foreach ($result as $rows) 
+
+		foreach ($result as $rows)
 		{
 			$row = '';
 			foreach ($rows as $column => $value)
@@ -92,7 +92,7 @@ class xml implements output
 	 * output XML
 	 */
 	function out($apiData)
-	{		
+	{
 		$ret  = '<?xml version="1.0"?>' . LF;
 		$ret .= '<gdi status="1">' . LF;
 		$ret .= $this->array_to_xml($apiData);
@@ -116,7 +116,7 @@ class json implements output
 	}
 }
 
-class jqplot_data implements output
+class graph implements output
 {
 	/**
 	 * output JSON
