@@ -4,6 +4,7 @@
  *
  * @author		Ivan Lanin <ivan@lanin.org>
  * @author		Agastiya S. Mohammad <agastiya@gmail.com>
+ * @author		Wida Sari <wida.sari@yahoo.com>
  * @since		2010-11-13 23:35
  * @last_update 2011-12-09 07:48 - IL
 */
