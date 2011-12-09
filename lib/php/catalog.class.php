@@ -10,9 +10,14 @@
 
 class catalog
 {
-	function list_catalog($dir)
+	var $data_sets; // d
+
+	/**
+	 * Populate and return catalog
+	 */
+	function get_catalog($dir)
 	{
-		$data_sets = array();
+		$this->data_sets = array();
 		if ($handle = opendir($dir)) {
 
 			/* This is the correct way to loop over the directory. */
@@ -22,18 +27,34 @@ class catalog
 					$info = pathinfo($file);
 					// only load .txt file
 					if ($info['extension'] == 'txt')
-						$data_sets[] = basename($file,'.'.$info['extension']);
+						$this->data_sets[] = basename($file,'.'.$info['extension']);
 				}
 			}
-
 			closedir($handle);
-
 		}
 		else
 		{
 			echo "Tidak bisa list katalog data";
 		}
-		return $data_sets;
+		return($this->data_sets);
+	}
+
+	/**
+	 * Render catalog
+	 */
+	function render_catalog()
+	{
+		$ret .= '<ul>';
+		foreach($this->data_sets as $data)
+		{
+			$ret .= sprintf(
+				'<li><a href="./?q=%1$s">%2$s</a></li>',
+				$data,
+				ucfirst(str_replace('_', ' ', $data))
+			);
+		}
+		$ret .= '</ul>';
+		return($ret);
 	}
 }
 ?>

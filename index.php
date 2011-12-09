@@ -2,10 +2,10 @@
 /**
  * Gudang Data Indonesia
  *
- * @author	Ivan Lanin <ivan@lanin.org>
- * @author	Agastiya S. Mohammad <agastiya@gmail.com>
- * @since	2010-11-13 23:35
- * @last_update Wida Sari <wida.sari@yahoo.com> 2011-10-05 11:18
+ * @author		Ivan Lanin <ivan@lanin.org>
+ * @author		Agastiya S. Mohammad <agastiya@gmail.com>
+ * @since		2010-11-13 23:35
+ * @last_update 2011-12-09 07:48 - IL
 */
 if (!file_exists('config.php'))
 	die(__('config.php tidak ditemukan. Buat config.php dari config.sample.php'));
@@ -22,63 +22,61 @@ T_setlocale(LC_MESSAGES, $locale);
 T_bindtextdomain(APP_ID, APP_DIR . '/assets/locale');
 T_textdomain(APP_ID);
 
-// Process get
-if(isset($_GET['q']))
+// Process query or get catalog
+$TITLE = 'Gudang Data Indonesia';
+$query = $_GET['q'];
+$output = $_GET['o'];
+if (isset($query))
 {
 	$gdi = new gdi();
-	$data = (isset($_GET['q']) && file_exists(DATA_DIR.$_GET['q'].'.txt')) ? $_GET['q'] : DEFAULT_DATA;
-	$output = (isset($_GET['o']) && class_exists($_GET['o'])) ? $_GET['o'] : DEFAULT_OUTPUT;
-	$result = $gdi->get_data($data, $output);
-
-	// Tampilkan hasil
-	if (class_exists('PEAR') && PEAR::isError($result))
+	$query  = file_exists(DATA_DIR . $query .'.txt') ? $query : DEFAULT_DATA;
+	$output = class_exists($output) ? $output : DEFAULT_OUTPUT;
+	$data = $gdi->get_data($query, $output);
+	$o = new $output;
+	$CONTENT = $o->out($data);
+	if ($output == DEFAULT_OUTPUT)
 	{
-		echo $result->getMessage() . "<br />\n" . $result->getDebugInfo();
-	}
-	else
-	{
-		$o = new $output;
-		if($output != 'html')
+		$meta = $gdi->get_meta($query, $output);
+		$TITLE = $meta['deskripsi'];
+		$types = json_decode('{"csv":"","json":"","xml":"","graph":"graph.php"}', true);
+		foreach ($types as $key => $val)
 		{
-			echo $o->out($result);exit;
+			$ACTION .= sprintf('<li><a href="./%1$s?q=%2$s&o=%3$s">%4$s</a></li>',
+				$val, $query, $key, $key);
 		}
-		else
-		{
-			$data_html = $o->out($result);
-		}
+		$ACTION = '<ul class="action">' . $ACTION . '</ul>';
 	}
 }
 else
 {
 	$catalog = new catalog();
-	$data_sets = $catalog->list_catalog(DATA_DIR);
+	$catalog->get_catalog(DATA_DIR);
+	$CONTENT = $catalog->render_catalog();
 }
-?>
-<H2>Gudang Data Indonesia</H2>
-<hr>
-<?php
-if(isset($data_html))
-{
-	$meta = $gdi->get_meta($data, $output);
-	echo '<a href="?">Katalog</a><br>';
-	echo '<a href="?q='.$data.'&o=csv" target="_blank">[csv]</a><a href="graph.php?q='.$data.'">[graph]</a><a href="?q='.$data.'&o=json">[json]</a><a href="?q='.$data.'&o=xml">[xml]</a>';
-	echo "<pre>";
-	print_r($meta);
-	echo "</pre>";
-	echo $data_html;
 
-}
-else if(isset($data_sets))
-{
-	echo "Katalog GDI<br>";
-	echo "Data Set:<br>";
-	echo '<a href="upload">Upload Data Set Baru</a><br>';
-	foreach($data_sets as $data)
-	{
-		echo '<a href="?q='.$data.'">'.ucfirst(str_replace('_', ' ', $data)) . '</a><br>';
-	}
-}
-?>
-<hr>
+// Die if query and output is not HTML
+if (isset($query) && $output != DEFAULT_OUTPUT) die($CONTENT);
 
-&copy; <?php echo date('Y'); ?> <a href="http://id-php.org/GDI">http://id-php.org/GDI</a>
+// Further process if else
+$MENU .= '<li><a href="./?">Katalog</a></li>';
+$MENU .= '<li><a href="#">Dataset baru</a></li>';
+$MENU = '<ul class="menu">' . $MENU . '</ul>';
+$HEADER  = sprintf('<h2>%1$s</h2>', $TITLE) . $MENU;
+$CONTENT = $ACTION . $CONTENT;
+$FOOTER  = sprintf('&copy; %1$s <a href="http://id-php.org/GDI">GDI</a>', date('Y'));
+$THEME = 'assets/themes/default.css';
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="id" dir="ltr"" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><?php echo($TITLE); ?></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="<?php echo($THEME); ?>" />
+</head>
+<body>
+<?php echo($HEADER); ?>
+<?php echo($CONTENT); ?>
+<?php echo($FOOTER); ?>
+</body>
+</html>

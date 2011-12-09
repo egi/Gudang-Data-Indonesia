@@ -1,0 +1,5 @@
+ul.menu { margin: 0; padding: 0; }
+ul.menu li { display: inline; list-style: none; padding: 0px 5px; }
+
+ul.action { margin: 0; padding: 0; }
+ul.action li { display: inline; list-style: none; padding: 0px 5px; }
