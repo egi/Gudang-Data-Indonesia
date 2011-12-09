@@ -35,11 +35,12 @@ if (isset($query))
 	$data = $gdi->get_data($query, $output);
 	$o = new $output;
 	$CONTENT = $o->out($data);
-	if (in_array($output, array('html', 'graph')))
+	if (in_array($output, array('meta', 'html', 'graph')))
 	{
 		$meta = $gdi->get_meta($query, $output);
+		if ($output == 'meta') $CONTENT = json_encode($meta);
 		$TITLE = $meta['deskripsi'];
-		$types = json_decode('{"html":"","graph":"","csv":"","json":"","xml":""}', true);
+		$types = json_decode('{"html":"","meta":"","graph":"","csv":"","json":"","xml":""}', true);
 		foreach ($types as $key => $val)
 		{
 			$ACTION .= sprintf('<li><a href="./%1$s?q=%2$s&o=%3$s">%4$s</a></li>',
@@ -63,7 +64,7 @@ $MENU .= '<li><a href="#">Dataset baru</a></li>';
 $MENU = '<ul class="menu">' . $MENU . '</ul>';
 $HEADER  = sprintf('<h2>%1$s</h2>', $TITLE) . $MENU . $ACTION;
 $FOOTER  = sprintf('&copy; %1$s <a href="http://id-php.org/GDI">GDI</a>', date('Y'));
-$THEME = 'assets/themes/default.css';
+$THEME = 'assets/styles/default.css';
 
 if ($output == 'graph') include_once('graph.php');
 ?>
@@ -74,9 +75,9 @@ if ($output == 'graph') include_once('graph.php');
 <title><?php echo($TITLE); ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="<?php echo($THEME); ?>" />
-
 <?php if ($output == 'graph') { ?>
 <link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.css" />
+<link rel="stylesheet" type="text/css" href="assets/styles/jqplot.css" />
 <script language="javascript" type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="lib/jqplot/jquery.jqplot.js"></script>
 <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
@@ -86,40 +87,14 @@ if ($output == 'graph') include_once('graph.php');
 <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
 <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.categoryAxisRenderer.min.js"></script>
 <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.barRenderer.min.js"></script>
-<script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.highlighter.mod.js"></script>
+<script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.highlighter.min.js"></script>
 <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.cursor.min.js"></script>
-<style type="text/css">
-.jqplot-axis { font-size: 0.85em; }
-.jqplot-legend { font-size: 0.75em; }
-.jqplot-point-label {white-space: nowrap;}
-.jqplot-yaxis-label {font-size: 0.85em;}
-.jqplot-yaxis-tick {font-size: 0.85em;}
-.jqplot { margin: 70px;}
-.jqplot-target { margin-bottom: 2em; }
-
-pre {
-	background: #D8F4DC;
-	border: 1px solid rgb(200, 200, 200);
-	padding-top: 1em;
-	padding-left: 3em;
-	padding-bottom: 1em;
-	margin-top: 1em;
-	margin-bottom: 4em;
-}
-
-p { margin: 2em 0; }
-
-.note { font-size: 0.8em; }
-
-.jqplot-breakTick { }
-
-</style>
-<script type="text/javascript" language="javascript">
+<script language="javascript" type="text/javascript">
 $.jqplot.config.enablePlugins = true;
 $(document).ready(function(){
 
 	plot1 = $.jqplot('chart', eval(<?php echo $data_str ?>), {
- 	  title: '<?php echo $q ?>',
+ 	  // title: '<?php echo $q ?>',
 	  legend: {show:true, location: 'nw', yoffset: 6},
 	  series: <?php echo $series_str?>,
 	  axes:{
@@ -153,7 +128,6 @@ $(document).ready(function(){
 })(jQuery);
 </script>
 <?php } ?>
-
 </head>
 <body>
 <?php echo($HEADER); ?>
@@ -162,6 +136,6 @@ $(document).ready(function(){
 <?php } else { ?>
 <?php echo($CONTENT); ?>
 <?php } ?>
-<?php echo($FOOTER); ?>
+<div id="footer"><?php echo($FOOTER); ?></div>
 </body>
 </html>

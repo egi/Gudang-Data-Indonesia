@@ -119,7 +119,19 @@ class json implements output
 class graph implements output
 {
 	/**
-	 * output JSON
+	 * output graph
+	 */
+	function out($apiData)
+	{
+		$data = array('gdi'=>$apiData);
+		return $apiData;
+	}
+}
+
+class meta implements output
+{
+	/**
+	 * output meta
 	 */
 	function out($apiData)
 	{
