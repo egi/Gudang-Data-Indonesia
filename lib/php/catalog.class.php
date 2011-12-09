@@ -3,8 +3,9 @@
  * Gudang Data Indonesia
  *
  * @author		Wida Sari <wida.sari@yahoo.com>
+ * @author		Ivan Lanin <ivan@lanin.org>
  * @since		2011-10-05 10:30
- * @last_update Wida Sari <wida.sari@yahoo.com> 2011-10-05 11:18
+ * @last_update 2011-12-09 06:55 - IL
  */
 
 class catalog
@@ -19,7 +20,9 @@ class catalog
 				if(is_file("$dir/$file"))
 				{
 					$info = pathinfo($file);
-					$data_sets[] = basename($file,'.'.$info['extension']);
+					// only load .txt file
+					if ($info['extension'] == 'txt')
+						$data_sets[] = basename($file,'.'.$info['extension']);
 				}
 			}
 
