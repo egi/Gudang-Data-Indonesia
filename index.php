@@ -77,7 +77,7 @@ if ($output == 'graph') include_once('graph.php');
 <link rel="stylesheet" type="text/css" href="<?php echo($THEME); ?>" />
 <?php if ($output == 'graph') { ?>
 <link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.css" />
-<link rel="stylesheet" type="text/css" href="assets/styles/jqplot.css" />
+<link rel="stylesheet" type="text/css" href="lib/jqplot/gdi.jqplot.css" />
 <script language="javascript" type="text/javascript" src="lib/jqplot/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="lib/jqplot/jquery.jqplot.js"></script>
 <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
@@ -90,43 +90,12 @@ if ($output == 'graph') include_once('graph.php');
 <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.highlighter.min.js"></script>
 <script language="javascript" type="text/javascript" src="lib/jqplot/plugins/jqplot.cursor.min.js"></script>
 <script language="javascript" type="text/javascript">
-$.jqplot.config.enablePlugins = true;
-$(document).ready(function(){
-
-	plot1 = $.jqplot('chart', eval(<?php echo $data_str ?>), {
- 	  // title: '<?php echo $q ?>',
-	  legend: {show:true, location: 'nw', yoffset: 6},
-	  series: <?php echo $series_str?>,
-	  axes:{
-		xaxis:{
-		  renderer:$.jqplot.CategoryAxisRenderer,
-		  tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-          tickOptions: { angle: 30 },
-		  ticks:<?php echo $ticks_str ?>
-		},
-		yaxis: {
-          autoscale: false,
-		  tickOptions: {formatString:'%d', formatter: $.jqplot.euroFormatter}
-        },
-		cursor: { show: false },
-		highlighter: {
-		}
-	  }
-	});
-});
-(function($) {
-    $.jqplot.euroFormatter = function (format, val) {
-        if (!format) {
-            format = '%.1f';
-        }
-        return numberWithCommas($.jqplot.sprintf(format, val));
-    };
-
-    function numberWithCommas(x) {
-        return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ".");
-    }
-})(jQuery);
+var data_str = <?php echo $data_str ?>;
+var series_str = <?php echo $series_str?>;
+var ticks_str = <?php echo $ticks_str ?>;
+var title_str = '<?php echo $q ?>';
 </script>
+<script language="javascript" type="text/javascript" src="lib/jqplot/gdi.jqplot.js"></script>
 <?php } ?>
 </head>
 <body>
