@@ -1,0 +1,23 @@
+.jqplot-axis { font-size: 0.85em; }
+.jqplot-legend { font-size: 0.75em; }
+.jqplot-point-label {white-space: nowrap;}
+.jqplot-yaxis-label {font-size: 0.85em;}
+.jqplot-yaxis-tick {font-size: 0.85em;}
+.jqplot { margin: 70px;}
+.jqplot-target { margin-bottom: 2em; }
+
+pre {
+	background: #D8F4DC;
+	border: 1px solid rgb(200, 200, 200);
+	padding-top: 1em;
+	padding-left: 3em;
+	padding-bottom: 1em;
+	margin-top: 1em;
+	margin-bottom: 4em;
+}
+
+p { margin: 2em 0; }
+
+.note { font-size: 0.8em; }
+
+.jqplot-breakTick { }
