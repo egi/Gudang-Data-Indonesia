@@ -5,125 +5,76 @@
  * @author	Ivan Lanin <ivan@lanin.org>
  * @author	Agastiya S. Mohammad <agastiya@gmail.com>
  * @since	2010-11-13 23:35
- */
+ * @last_update Wida Sari <wida.sari@yahoo.com> 2011-10-05 11:18
+*/
 
 define('LF', "\r\n");
+define('DATA_DIR', 'C:/AppServ/www/gdi/data/');
+define('CSV_SEP', ';');
 
-interface output
-{
-	function out($data);
-}
+require_once('../lib/php/catalog.class.php');
+require_once('../lib/php/output.class.php');
+require_once('../lib/php/gdi.class.php');
 
-class csv implements output
+if(isset($_GET['q']))
 {
-	function out($result)
+
+	$default_data = 'propinsi';
+	$default_output = 'html';
+
+	$gdi = new gdi();
+	$data = (isset($_GET['q']) && file_exists(DATA_DIR.$_GET['q'].'.txt')) ? $_GET['q'] : $default_data;
+	$output = (isset($_GET['o']) && class_exists($_GET['o'])) ? $_GET['o'] : $default_output;
+	$result = $gdi->get_data($data, $output);
+
+	// Tampilkan hasil
+	if (class_exists('PEAR') && PEAR::isError($result))
 	{
-		$ret = '';
-		$rows = count($result);
-		foreach ($result[0] as $column => $value)
-			$head .= ($head ? ',' : '') . $column;
-		$ret .= $head . LF;
-		foreach ($result as $rows)
+		echo $result->getMessage() . "<br />\n" . $result->getDebugInfo();
+	}
+	else
+	{
+		$o = new $output;
+		if($output != 'html')
 		{
-			$row = '';
-			foreach ($rows as $column => $value)
-				$row .= ($row ? ',' : '') . $value;
-			$ret .= $row . LF;
+			echo $o->out($result);exit;
 		}
-		return $ret;
-	}
-}
-
-class html implements output
-{
-	function out($result)
-	{
-		$ret  = '<table>';
-		$ret .= '<tr>';
-		$first_row = reset($result);
-		foreach ($first_row as $column => $value)
-			$ret .= '<th>' . $column . '</th>';
-		$ret .= '</tr>';
-		foreach ($result as $rows)
+		else
 		{
-			$ret .= '<tr>';
-			foreach ($rows as $column => $value)
-				$ret .= '<td>' . $value . '</td>';
-			$ret .= '</tr>';
+			$data_html = $o->out($result);
 		}
-		$ret .= '</table>';
-		return $ret;
 	}
-}
-
-class xml implements output
-{
-	/**
-	 * Array to XML
-	 */
-	private function array_to_xml(&$array)
-	{
-		$ret = '';
-		foreach ($array as $key => $value)
-		{
-			$keyName = is_numeric($key) ? 'elm' . $key : $key;
-			if (!is_array($value))
-			{
-				$ret .= sprintf('<%1$s>%2$s</%1$s>', $keyName, $value) . LF;
-			}
-			else
-			{
-				$ret .= sprintf('<%1$s>', $keyName) . LF;
-				$ret .= array_to_xml($value);
-				$ret .= sprintf('</%1$s>', $keyName) . LF;
-			}
-		}
-		return($ret);
-	}
-
-	/**
-	 * output XML
-	 */
-	function out($apiData)
-	{
-		$ret  = '<?xml version="1.0"?>' . LF;
-		$ret .= '<gdi status="1">' . LF;
-		$ret .= $this->array_to_xml($apiData);
-		$ret .= '</gdi>' . LF;
-		//header('Content-type: text/xml');
-		return($ret);
-	}
-}
-
-class json implements output
-{
-	/**
-	 * output JSON
-	 */
-	function out($apiData)
-	{
-		$data = array('gdi'=>$apiData);
-		$ret  = json_encode($data);
-		//header('Content-type: application/json');
-		return($ret);
-	}
-}
-
-//require_once('gdi.class.php');
-require_once('gdi_yopi.class.php');
-$gdi = new gdi();
-$level = (isset($_GET['q'])) ? $_GET['q'] : 'wilayah';
-$result = $gdi->get_data($level);
-
-// Tampilkan hasil
-if (class_exists('PEAR') && PEAR::isError($result))
-{
-	echo $result->getMessage() . "<br />\n" . $result->getDebugInfo();
 }
 else
 {
-	$output_class = 'html';
-	if (isset($_GET['f']) && class_exists($_GET['f'])) $output_class = $_GET['f'];
-	$o = new $output_class;
-	echo $o->out($result);
+	$catalog = new catalog();
+	$data_sets = $catalog->list_catalog(DATA_DIR);
 }
+?>
+<H2>Gudang Data Indonesia</H2>
+<hr>
+<?php
+if(isset($data_html))
+{
+	$meta = $gdi->get_meta($data, $output);
+	echo '<a href="?">Katalog</a><br>';
+	echo '<a href="?q=$file_data&o=csv" target="_blank">[csv]</a><a href="?q=$file_data&o=json">[json]</a><a href="?q=$file_data&o=xml">[xml]</a>';
+	echo "<pre>";
+	print_r($meta);
+	echo "</pre>";
+	echo $data_html;
+}
+else if(isset($data_sets))
+{
+	echo "Katalog GDI<br>";
+	echo "Data Set:<br>";
+	echo '<a href="upload">Upload Data Set Baru</a><br>';
+	foreach($data_sets as $data)
+	{
+		echo '<a href="?q='.$data.'">'.ucfirst(str_replace('_', ' ', $data)) . '</a><br>';
+	}
+}
+?>
+<hr>
+
+&copy; <?php echo date('Y'); ?> id-php@yahoogroups.com

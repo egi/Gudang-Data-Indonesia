@@ -5,7 +5,7 @@ tanggal_dibuat:2010-11-17
 nama_file:kabupaten.txt
 deskripsi:Data Kabupaten Indonesia, sumber data diambil dari sumbangan Wida Sari dari file group ID-PHP
 kegunaan:Demo
-lokasi:data/yopi/kabupaten.txt
+lokasi:data/kabupaten.txt
 primary_key:Id_Kabupaten
 sifat_tabel:master;hirarki
 struktur_tabel:Id_Kabupaten;Nama_Kabupaten
