@@ -33,7 +33,7 @@ class gdi
 		//print_r($meta[struktur_data]);
 		**/
 
-		// dua baris berikut ini memanggil fgets karena dalam file data ada 
+		// dua baris berikut ini memanggil fgets karena dalam file data ada
 		// baris ,<DATA> dan nama field yang tidak diproses
 		/*echo*/ fgets($handle);
 		$itembaca=explode(";",fgets($handle));
