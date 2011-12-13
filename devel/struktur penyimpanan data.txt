@@ -1,0 +1,14 @@
+<META>
+kunci:nilai
+kunci:nilai
+kunci:nilai1;nilai2;nilai3
+kunci:<serial>nilai{field:type:data;.....}</serial>
+</META>
+<DATA>
+namafield1;namafield2;namafield3;namafield4;.......;namafieldN
+datafield1;datafield2;datafield3;datafield4;.............;datafieldN;
+datafield1;datafield2;datafield3;datafield4;.............;datafieldN;
+datafield1;datafield2;datafield3;datafield4;.............;datafieldN;
+datafield1;datafield2;datafield3;datafield4;.............;datafieldN;
+datafield1;datafield2;datafield3;datafield4;.............;datafieldN;
+</DATA>

@@ -1,0 +1,66 @@
+<META>
+author: Wida Sari
+tanggal_dibuat: 17/10/2011
+email:wida.sari@yahoo.com
+nama_file: mortality_rate_di_bawah_5_per_1000.txt
+deskripsi: tingkat kematian anak di bawah 5 tahun per 1000, menurut world bank
+kegunaan: demo
+lokasi:data/mortality_rate_di_bawah_5_per_1000
+primary_key: tahun
+sifat_tabel: statistik
+struktur_tabel: tahun;jumlah_per_1000
+</META>
+<DATA>
+tahun;jumlah_per_1000
+1960;217.8
+1961;212
+1962;206.4
+1963;200.8
+1964;195.2
+1965;190.2
+1966;185.3
+1967;180
+1968;175.1
+1969;169.9
+1970;164.9
+1971;159.9
+1972;155
+1973;150.3
+1974;145.6
+1975;140.9
+1976;136.4
+1977;132.3
+1978;128.4
+1979;124.7
+1980;121.2
+1981;117.8
+1982;114.3
+1983;111.1
+1984;107.6
+1985;104.4
+1986;100.9
+1987;97.3
+1988;93.2
+1989;89.2
+1990;85
+1991;81
+1992;77.1
+1993;73.3
+1994;69.9
+1995;66.6
+1996;63.9
+1997;61.5
+1998;58.8
+1999;56.3
+2000;54
+2001;51.7
+2002;49.5
+2003;47.5
+2004;45.5
+2005;43.7
+2006;41.9
+2007;40.3
+2008;38.5
+2009;36.8
+2010;35.3
+</DATA>

@@ -1,0 +1,24 @@
+<META>
+author:Wida Sari
+tanggal_dibuat:21/11/2011
+email:wida.sari@yahoo.com
+nama_file:data_fisik_planet.txt
+deskripsi:data fisik planet tata surya matahari;www.nasm.si.edu/research/ceps/etp/ss/ss_planetdata.html
+kegunaan:demo
+lokasi:data/data_fisik_planet.txt
+primary_key:Planet
+sifat_tabel:statistik
+struktur_tabel:Planet;Mean Distance from the Sun (AU);Sidereal period of orbit (years);Mean Orbital Velocity (km/sec);Orbital  Eccentricity;Inclination to ecliptic (degrees);Equatorial Radius (km);Polar Radius (km);Mass of planet (Earth=1);Mean density (grams/centimeter3);Body rotation period (hours);Tilt of equator to orbit (degrees);Number of observed satellites
+</META>
+<DATA>
+Planet;Mean Distance from the Sun (AU);Sidereal period of orbit (years);Mean Orbital Velocity (km/sec);Orbital  Eccentricity;Inclination to ecliptic (degrees);Equatorial Radius (km);Polar Radius (km);Mass of planet (Earth=1);Mean density (grams/centimeter3);Body rotation period (hours);Tilt of equator to orbit (degrees);Number of observed satellites
+Mercury;0.3871;0.24;47.89;0.206;7;2439;0;0.06;5.43;1408;2;0
+Venus;0.7233;0.62;35.04;0.007;3.4;6052;0;0.82;5.25;5832;177.3;0
+Earth;1;1;29.79;0.017;0;6378;6357;1;5.52;23.93;23.45;1
+Mars;1.524;1.88;24.14;0.093;1.85;3397;3380;0.11;3.95;24.62;25.19;2
+Jupiter;5.203;11.86;13.06;0.048;1.3;71490;66854;317.89;1.33;9.92;3.12;28
+Saturn;9.539;29.46;9.64;0.056;2.49;60268;54360;95.18;0.69;10.66;26.73;30
+Uranus;19.19;84.01;6.81;0.046;0.77;25559;24973;14.53;1.29;17.24;97.86;24
+Neptune;30.06;164.79;5.43;0.01;1.77;25269;24340;17.14;1.64;16.11;29.6;8
+Pluto;39.48;248.54;4.74;0.248;17.15;1160;0;0.002;2.03;153.3;122.46;1
+</DATA>

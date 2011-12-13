@@ -115,4 +115,17 @@ class json implements output
 		return($ret);
 	}
 }
+
+class jqplot_data implements output
+{
+	/**
+	 * output JSON
+	 */
+	function out($apiData)
+	{
+		$data = array('gdi'=>$apiData);
+		return $apiData;
+	}
+}
+
 ?>

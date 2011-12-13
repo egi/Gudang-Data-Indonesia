@@ -8,17 +8,13 @@
  * @last_update Wida Sari <wida.sari@yahoo.com> 2011-10-05 11:18
 */
 
-define('LF', "\r\n");
-define('DATA_DIR', 'C:/AppServ/www/gdi/data/');
-define('CSV_SEP', ';');
-
+require_once('config.php');
 require_once('../lib/php/catalog.class.php');
 require_once('../lib/php/output.class.php');
 require_once('../lib/php/gdi.class.php');
 
 if(isset($_GET['q']))
 {
-
 	$default_data = 'propinsi';
 	$default_output = 'html';
 
@@ -58,7 +54,7 @@ if(isset($data_html))
 {
 	$meta = $gdi->get_meta($data, $output);
 	echo '<a href="?">Katalog</a><br>';
-	echo '<a href="?q=$file_data&o=csv" target="_blank">[csv]</a><a href="?q=$file_data&o=json">[json]</a><a href="?q=$file_data&o=xml">[xml]</a>';
+	echo '<a href="?q='.$data.'&o=csv" target="_blank">[csv]</a><a href="graph.php?q='.$data.'">[graph]</a><a href="?q='.$data.'&o=json">[json]</a><a href="?q='.$data.'&o=xml">[xml]</a>';
 	echo "<pre>";
 	print_r($meta);
 	echo "</pre>";
