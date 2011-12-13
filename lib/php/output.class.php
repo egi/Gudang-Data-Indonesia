@@ -116,12 +116,17 @@ class xml implements output
 class json implements output
 {
 	/**
-	 * output JSON
+	 * output JSON.
+	 * Need to comply to Cross-Origin Resource Sharing (CORS) standard to be 
+	 * usable by other sites.
+	 *
+	 * @see https://developer.mozilla.org/En/HTTP_Access_Control
 	 */
 	function out($apiData)
 	{
 		$data = array('gdi'=>$apiData);
 		$ret  = json_encode($data);
+		header('Access-Control-Allow-Origin: *');
 		header('Content-type: application/json');
 		return($ret);
 	}

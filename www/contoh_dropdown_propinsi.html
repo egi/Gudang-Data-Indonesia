@@ -1,0 +1,27 @@
+<html>
+    <head>
+    <script language="javascript" type="text/javascript" src="../lib/jqplot/jquery.min.js"></script>
+    </head>
+    <body>
+
+        Provinsi: <select id="options" />
+
+<script>
+$().ready(function() {
+    $.ajax({
+        type: 'GET',
+        url: 'http://gdi.id-php.org/?q=provinsi&o=json',
+        contentType: "text/plain",
+        dataType: 'json',
+        success: function(result) {
+            var options = $("#options");
+            $.each(result.gdi, function() {
+                options.append($("<option />").val(this.kode_wilayah).text(this.nama_wilayah));
+            });
+        }
+    });
+});
+</script>
+
+    </body>
+</html>
