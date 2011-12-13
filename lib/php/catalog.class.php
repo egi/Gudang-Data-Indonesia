@@ -44,7 +44,7 @@ class catalog
 	 */
 	function render_catalog()
 	{
-		$ret .= '<ul>';
+		$ret  = '<ul>';
 		foreach($this->data_sets as $data)
 		{
 			$ret .= sprintf(

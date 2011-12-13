@@ -9,7 +9,7 @@
 
 class gdi
 {
-	function get_data($file_data, $output='html')
+	function get_data($file_data, $output='dummy')
 	{
 		$handle=fopen(DATA_DIR.$file_data.'.txt',"r");
 

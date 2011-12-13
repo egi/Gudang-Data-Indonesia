@@ -8,14 +8,16 @@
  * @since		2010-11-13 23:35
  * @last_update 2011-12-09 07:48 - IL
 */
-if (!file_exists('config.php'))
-	die(__('config.php tidak ditemukan. Buat config.php dari config.sample.php'));
 
-require_once('config.php');
 require_once('lib/php/catalog.class.php');
 require_once('lib/php/output.class.php');
 require_once('lib/php/gdi.class.php');
 require_once('lib/gettext/gettext.inc');
+
+if (!file_exists('config.php'))
+	die(__('config.php tidak ditemukan. Buat config.php dari config.sample.php'));
+
+require_once('config.php');
 
 // Locale
 $locale = 'id';
@@ -25,20 +27,22 @@ T_textdomain(APP_ID);
 
 // Process query or get catalog
 $TITLE = 'Gudang Data Indonesia';
-$query = $_GET['q'];
-$output = $_GET['o'];
+$ACTION = '';
+$query  = isset($_GET['q']) ? $_GET['q'] : null;
+$output = isset($_GET['o']) ? $_GET['o'] : null;
 if (isset($query))
 {
 	$gdi = new gdi();
 	$query  = file_exists(DATA_DIR . $query .'.txt') ? $query : DEFAULT_DATA;
 	$output = class_exists($output) ? $output : DEFAULT_OUTPUT;
-	$data = $gdi->get_data($query, $output);
 	$o = new $output;
+	$data = $gdi->get_data($query, $output);
 	$CONTENT = $o->out($data);
 	if (in_array($output, array('meta', 'html', 'graph')))
 	{
 		$meta = $gdi->get_meta($query, $output);
-		if ($output == 'meta') $CONTENT = json_encode($meta);
+		if ($output == 'meta')
+			$CONTENT = $o->out($meta);
 		$TITLE = $meta['deskripsi'];
 		$types = json_decode('{"html":"","meta":"","graph":"","csv":"","json":"","xml":""}', true);
 		foreach ($types as $key => $val)
@@ -59,7 +63,7 @@ else
 }
 
 // Further process if else
-$MENU .= '<li><a href="./?">Katalog</a></li>';
+$MENU  = '<li><a href="./?">Katalog</a></li>';
 $MENU .= '<li><a href="#">Dataset baru</a></li>';
 $MENU = '<ul class="menu">' . $MENU . '</ul>';
 $HEADER  = sprintf('<h2>%1$s</h2>', $TITLE) . $MENU . $ACTION;

@@ -66,6 +66,16 @@ class html implements output
 class xml implements output
 {
 	/**
+	 * make valid tag names from keyName. valid tag names only contain 
+	 * alphanumeric and underscore characters.
+	 **/
+	private function _to_tag($key)
+	{
+		$key = preg_replace(array('/ /', '/[^A-Z0-9_]/i'), array('_', ''), $key);
+		return $key;
+	}
+
+	/**
 	 * Array to XML
 	 */
 	private function array_to_xml(&$array)
@@ -76,7 +86,8 @@ class xml implements output
 			$keyName = is_numeric($key) ? 'elm' . $key : $key;
 			if (!is_array($value))
 			{
-				$ret .= sprintf('<%1$s>%2$s</%1$s>', $keyName, $value) . LF;
+				$ret .= sprintf('<%1$s title="%3$s">%2$s</%1$s>',
+					$this->_to_tag($keyName), $value, $keyName) . LF;
 			}
 			else
 			{
@@ -136,7 +147,7 @@ class meta implements output
 	function out($apiData)
 	{
 		$data = array('gdi'=>$apiData);
-		return $apiData;
+		return json_encode($apiData);
 	}
 }
 

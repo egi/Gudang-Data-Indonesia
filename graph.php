@@ -53,6 +53,7 @@ if(isset($_GET['q']))
 
 		$ticks_str = "['".(implode("','", $ticks))."']";
 
+		$data_strs = array();
 		$data_str = "[";
 		foreach($plot_data as $index=>$data)
 		{
