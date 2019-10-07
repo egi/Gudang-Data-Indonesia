@@ -47,10 +47,21 @@ if (isset($query))
 		$types = json_decode('{"html":"","meta":"","graph":"","csv":"","json":"","xml":""}', true);
 		foreach ($types as $key => $val)
 		{
-			$ACTION .= sprintf('<li><a href="./%1$s?q=%2$s&o=%3$s">%4$s</a></li>',
+			$ACTION .= sprintf('<a href="./%1$s?q=%2$s&o=%3$s"  class="dropdown-item" >%4$s</a>',
 				$val, $query, $key, $key);
 		}
-		$ACTION = '<ul class="action">' . $ACTION . '</ul>';
+		// $ACTION = '<ul class="action">' . $ACTION . '</ul>';
+		$ACTION = '
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Output Type
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          ' .$ACTION. '
+        </div>
+      </li>
+
+		';
 	}
 	else
 		die($CONTENT);
@@ -63,12 +74,30 @@ else
 }
 
 // Further process if else
-$MENU  = '<li><a href="./?">Katalog</a></li>';
-$MENU .= '<li><a href="#">Dataset baru</a></li>';
-$MENU = '<ul class="menu">' . $MENU . '</ul>';
-$HEADER  = sprintf('<h2>%1$s</h2>', $TITLE) . $MENU . $ACTION;
-$FOOTER  = sprintf('&copy; %1$s <a href="http://id-php.org/GDI">GDI</a>', date('Y'));
-$THEME = 'assets/styles/default.css';
+$MENU  = '<li class="nav-item"><a class="nav-link" href="./?">Katalog</a></li>';
+$MENU .= '<li class="nav-item"><a class="nav-link" href="#">Dataset baru</a></li>';
+// $MENU = '<ul class="menu">' . $MENU . '</ul>';
+
+$MENU = '<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">GDI</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+    	' . $MENU . '
+    	' . $ACTION . '
+    </ul>
+  </div>
+</nav>
+';
+
+$HEADER  = sprintf('<h1 class="m-3">%1$s</h1>', $TITLE) . $MENU;
+$FOOTER  = sprintf('<footer class="footer">
+      <div class="container text-center">&copy; %1$s <a href="http://id-php.org/GDI">GDI</a></div>
+    </footer>', date('Y'));
+$THEME = 'assets/styles/bootstrap.min.css';
 
 if ($output == 'graph') include_once('graph.php');
 ?>
@@ -79,6 +108,10 @@ if ($output == 'graph') include_once('graph.php');
 <title><?php echo($TITLE); ?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" href="<?php echo($THEME); ?>" />
+<link rel="stylesheet" type="text/css" href="assets/styles/sticky-footer.css" />
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <?php if ($output == 'graph') { ?>
 <link rel="stylesheet" type="text/css" href="lib/jqplot/jquery.jqplot.css" />
 <link rel="stylesheet" type="text/css" href="lib/jqplot/gdi.jqplot.css" />

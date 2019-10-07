@@ -45,7 +45,7 @@ class html implements output
 {
 	function out($result)
 	{
-		$ret  = '<table>';
+		$ret  = '<div class="table-responsive"><table class="table  table-bordered">';
 		$ret .= '<tr>';
 		$first_row = reset($result);
 		foreach ($first_row as $column => $value)
@@ -58,7 +58,7 @@ class html implements output
 				$ret .= '<td>' . $value . '</td>';
 			$ret .= '</tr>';
 		}
-		$ret .= '</table>';
+		$ret .= '</table></div>';
 		return $ret;
 	}
 }
